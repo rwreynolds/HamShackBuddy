@@ -12,9 +12,9 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Initialize OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"), default_headers={"OpenAI-Beta": "assistants=v2"})
 assistant_id = os.getenv("ASSISTANT_ID")
-
+thread = client.beta.threads.create()
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
@@ -26,7 +26,7 @@ def chat():
             return jsonify({"error": "Message is required"}), 400
 
         # Create a thread
-        thread = client.beta.threads.create()
+        # thread = client.beta.threads.create()
 
         # Add message to thread
         client.beta.threads.messages.create(
