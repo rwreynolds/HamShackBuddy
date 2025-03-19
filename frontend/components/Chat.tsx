@@ -103,7 +103,7 @@ const Chat: React.FC<ChatProps> = ({ assistantName = "AI Assistant" }) => {
               } ${message.error ? 'border-red-400 bg-red-50' : ''}`}
             >
               <div className="flex justify-between mb-2">
-                <div className="font-bold text-gray-200">
+                <div className="font-bold text-gray-800">
                   {message.role === 'user' ? 'You' : assistantName}
                 </div>
                 <div className="text-xs text-gray-600">
