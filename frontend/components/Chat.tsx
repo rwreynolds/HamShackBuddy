@@ -21,7 +21,7 @@ interface ChatProps {
   assistantName?: string;
 }
 
-const Chat: React.FC<ChatProps> = ({ assistantName = "AI Assistant" }) => {
+const Chat: React.FC<ChatProps> = ({ assistantName = "HAM Shack Buddy" }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
