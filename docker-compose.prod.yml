@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hamshackbuddy-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    networks:
+      - nginx-network  # Connect to existing nginx network
+    volumes:
+      - ./backend:/app  # For development/debugging purposes
+    # No port mapping in production, only accessible within docker network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: hamshackbuddy-frontend
+    restart: unless-stopped
+    networks:
+      - nginx-network  # Connect to existing nginx network
+    depends_on:
+      - backend
+    # No port mapping in production, only accessible within docker network
+
+networks:
+  nginx-network:
+    external: true  # Use existing network that nginx is already on
