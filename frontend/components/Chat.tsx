@@ -8,6 +8,7 @@ import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
+
 // Define types for our messages
 interface Message {
   role: 'user' | 'assistant';
@@ -116,12 +117,13 @@ const Chat: React.FC<ChatProps> = ({ assistantName = "HAM Shack Buddy" }) => {
                   remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeRaw]}
                   components={{
-                    // @ts-ignore
-                    code({node, inline, className, children, ...props}) {
+                    // @ts-expect-error xxx
+                    code({inline, className, children, ...props}) {
                       const match = /language-(\w+)/.exec(className || '');
                       return !inline && match ? (
-                        // @ts-ignore
+                        // @ts-expect-error xxx
                         <SyntaxHighlighter
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                           style={tomorrow as any}
                           language={match[1]}
                           PreTag="div"
